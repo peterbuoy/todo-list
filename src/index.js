@@ -1,16 +1,27 @@
 import { TodoItem, Project } from "./Logic";
+import "./style.css";
 
-let item1 = new TodoItem('test', 'test description', '2021-10-10', '1', 'no details');
-console.log('hello');
-console.log(item1.getTitleAndUUID());
+const DIV_NEW_PROJECT = document.getElementById('div_new_project');
+
+let currentProject = "Inbox";
+const setCurrentProject = (name) => {
+	currentProject = name;
+	console.log('currentProject expression invoked');
+}
+
+// make new inbox, add to list, update dom
 let projectInbox =  new Project('Inbox');
-projectInbox.addItem(item1);
-console.log(projectInbox.printAllItems());
+let item = document.createElement('div');
+item.textContent = projectInbox.name;
+DIV_NEW_PROJECT.before(item);
 
-let projectPersonal = new Project('Personal');
-projectInbox.moveItem(item1, projectPersonal);
-console.log('item1 moved from inbox to personal');
-console.log(projectPersonal.printAllItems());
-let item2 = new TodoItem('test2', 'test description2', '2021-10-11', '3', 'big details');
-projectPersonal.addItem(item2);
-console.log(projectPersonal.printAllItems());
+const newProject = () => {
+		let project = new Project(prompt('enter name for new project'));
+		let item = document.createElement('div');
+		item.textContent = project.name;
+		item.addEventListener('click', () => setCurrentProject('Personal'))
+		DIV_NEW_PROJECT.before(item);
+	}
+DIV_NEW_PROJECT.addEventListener('click', newProject);
+
+
