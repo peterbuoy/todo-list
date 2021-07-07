@@ -23,8 +23,7 @@ class Project {
 		this.itemMap.set(todoItem.UUID, todoItem);
 		console.log('item added');
 	}
-	moveItem(todoItem, destProject) {
-		destProject.itemMap.set(todoItem.UUID, todoItem);
+	removeItem(todoItem) {
 		this.itemMap.delete(todoItem.UUID);
 	}
 	printAllItems() {
