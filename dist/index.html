@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Todo List</title>
+<script defer src="main.js"></script></head>
+<body>
+	<div id='sidenav'>
+		<span id='span_new_project'>+ New Project</span>
+	</div>
+	<div id='div_item_container'>
+    <button id="btn_add_task">+ New Task</button>
+		
+	</div>
+	<!-- New Task Modal -->
+	<div class="modal">
+		<div class="modal-content">
+				<span class="close-button">&times;</span>
+				<h1 id='header_task'>New Task</h1>
+				<!-- Form input for title, description, dueDate, priority, details -->
+				<form id='form_new_task'>
+					<label for="title">Title</label>
+					<input id='input_title' type="text" name='title' required>
+					<label for="description">Description</label>
+					<input id='input_description' type="text" name='description'>
+					<label for="date">Date</label>
+					<input id='input_date' type="date" name='date'>
+					<label for="priorities">Priority</label>
+					<select id='input_priorities' name='priorities'>
+						<option value="low">Low</option>
+						<option value="medium">Medium</option>
+						<option value="high">High</option>
+					</select>
+					<label for="details">Details</label>
+					<textarea id='input_details' name="details" cols="40" rows="10"></textarea>
+					<button type='submit' id='btn_confirm_task'>Confirm Task</button>
+					<button type='submit' id='btn_confirm_edit'>Confirm Edit</button>
+				</form>
+		</div>
+</div>
+</body>
+</html>
