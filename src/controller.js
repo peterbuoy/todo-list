@@ -2,7 +2,6 @@ import { TodoItem, Projects, Project } from "./model";
 import { toggleModal, displayNewProjectTab, displayProjectItems } from "./view"
 import "./style.css";
 
-const SPAN_NEW_PROJECT = document.getElementById('span_new_project');
 // Initialization
 const projects = new Projects();
 let inbox = new Project('Inbox')
@@ -34,6 +33,35 @@ const newProject = () => {
 	})
 }
 
+const editItemAndFixListeners = (itemUUID) => {
+	event.preventDefault();
+	let currentProject = projects.getCurrent();
+	let currentItem = currentProject.itemMap.get(itemUUID);
+	currentItem.title = document.getElementById('input_title').value;
+	currentItem.description = document.getElementById('input_description').value;
+	currentItem.dueDate = document.getElementById('input_date').value;
+	currentItem.priority = document.getElementById('input_priorities').value;
+	currentItem.details = document.getElementById('input_details').value;
+	document.getElementById('form_new_task').reset();
+	toggleModal();
+	displayProjectItems(currentProject);
+	FORM_NEW_TASK.removeEventListener('submit', (event) => editItemAndFixListeners(itemUUID));
+	FORM_NEW_TASK.addEventListener('submit', handleNewTaskCreation);
+}
+
+const handleEditItem = (itemUUID) => {
+	FORM_NEW_TASK.removeEventListener('submit', handleNewTaskCreation);
+	console.log(`itemUUID is ${itemUUID}`);
+	let currentProject = projects.getCurrent();
+	let currentItem = currentProject.itemMap.get(itemUUID);
+	document.getElementById('input_title').value = currentItem.title;
+	document.getElementById('input_description').value = currentItem.description;
+	document.getElementById('input_date').value = currentItem.dueDate;
+	document.getElementById('input_priorities').value = currentItem.priority;
+	document.getElementById('input_details').value = currentItem.details;
+	FORM_NEW_TASK.addEventListener('submit', (event) => editItemAndFixListeners(itemUUID));
+}
+
 const handleNewTaskCreation = (event) => {
 	event.preventDefault();
 	console.log('hello handle task creation');
@@ -51,9 +79,10 @@ const handleNewTaskCreation = (event) => {
 	toggleModal();
 }
 
+const SPAN_NEW_PROJECT = document.getElementById('span_new_project');
 SPAN_NEW_PROJECT.addEventListener('click', newProject);
 
-
 const FORM_NEW_TASK = document.getElementById('form_new_task');
-// this event listener overrides submit btn validation
 FORM_NEW_TASK.addEventListener('submit', handleNewTaskCreation);
+
+export { handleEditItem }

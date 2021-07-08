@@ -51,8 +51,4 @@ class Projects {
 	}
 }
 
-
-
-
-
 export { TodoItem, Projects, Project }

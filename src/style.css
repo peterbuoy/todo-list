@@ -79,3 +79,6 @@ textarea {
 	opacity: 0.5;
 	visibility: visible;
 }
+#btn_confirm_edit {
+	display: none;
+}
