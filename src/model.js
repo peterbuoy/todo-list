@@ -26,7 +26,7 @@ class Project {
 	}
 	addItem(todoItem) {
 		this.itemMap.set(todoItem.UUID, todoItem);
-		console.log(`${todoItem.name} added to ${this.name} project`);
+		console.log(`${todoItem.title} added to ${this.name} project`);
 	}
 	removeItemByID(itemUUID) {
 		this.itemMap.delete(itemUUID);
@@ -38,28 +38,21 @@ class Project {
 }
 
 class Projects {
-	projectList = [];
-	add(name) {
-		let newProject = new Project(name);
-		console.log('help');
-		this.projectList.push(newProject);
+	projectsMap = new Map();
+	currentProjectName = "";
+	setCurrent(project) {
+		this.currentProjectName = project.name;
+	}
+	getCurrent() {
+		return this.projectsMap.get(this.currentProjectName);
+	}
+	add(project) { 	
+		this.projectsMap.set(project.name, project);
 	}
 }
 
-// this needs to be split into a view and dom
-// honestly might just scrap the entire thing
-const newProject = () => {
-	// view/logic things
-	let projectName = prompt('Enter name for project');
-	if (projectName == null || projectName == '') return console.log('invalid project name');
-	let project = new Project(projectName);
-	// dom things
-	const SPAN_NEW_PROJECT = document.getElementById('span_new_project');
-	let item = document.createElement('span');
-	item.textContent = project.name;
-	SPAN_NEW_PROJECT.before(item);
-}
 
 
 
-export { TodoItem, Projects, newProject }
+
+export { TodoItem, Projects, Project }
