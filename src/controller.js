@@ -4,7 +4,7 @@ import "./style.css";
 
 // Initialization
 const projects = new Projects();
-let inbox = new Project('Inbox')
+const inbox = new Project('Inbox')
 projects.add(inbox);
 projects.setCurrent(inbox)
 displayNewProjectTab(inbox).addEventListener('click', () => {
@@ -45,8 +45,12 @@ const editItemAndFixListeners = (itemUUID) => {
 	document.getElementById('form_new_task').reset();
 	toggleModal();
 	displayProjectItems(currentProject);
-	FORM_NEW_TASK.removeEventListener('submit', (event) => editItemAndFixListeners(itemUUID));
+	FORM_NEW_TASK.removeEventListener('submit', () => editItemAndFixListeners(itemUUID));
 	FORM_NEW_TASK.addEventListener('submit', handleNewTaskCreation);
+	document.getElementById('btn_confirm_task').style.display = 'block';
+	document.getElementById('btn_confirm_edit').style.display = 'none';
+	document.getElementById('header_task').textContent = 'New Task'
+
 }
 
 const handleEditItem = (itemUUID) => {
@@ -59,7 +63,7 @@ const handleEditItem = (itemUUID) => {
 	document.getElementById('input_date').value = currentItem.dueDate;
 	document.getElementById('input_priorities').value = currentItem.priority;
 	document.getElementById('input_details').value = currentItem.details;
-	FORM_NEW_TASK.addEventListener('submit', (event) => editItemAndFixListeners(itemUUID));
+	FORM_NEW_TASK.addEventListener('submit', () => editItemAndFixListeners(itemUUID));
 }
 
 const handleNewTaskCreation = (event) => {
